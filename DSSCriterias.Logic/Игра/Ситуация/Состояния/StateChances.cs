@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using DSSCriterias.Logic.States;
+using System.Xml.Serialization;
 
 namespace DSSCriterias.Logic
 {

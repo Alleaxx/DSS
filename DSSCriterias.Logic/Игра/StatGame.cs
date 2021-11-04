@@ -54,12 +54,7 @@ namespace DSSCriterias.Logic
         public StatGame() : this("Природа", new MtxStat())
         {
 
-        }
-        //Из файла
-        public StatGame(StatGameXml xml) : this(xml.Name, MtxStat.CreateFromXml(xml))
-        {
-
-        }
+        }     
         //Настраиваемая игра
         public StatGame(string name, MtxStat mtx) : this(name, mtx, new Situation())
         {

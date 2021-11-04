@@ -38,8 +38,15 @@ namespace DSSCriterias.Logic
             }
         }
     }
+    public class StatSituationXml
+    {
+        public Usages Usage { get; set; }
+        public Goals Goal { get; set; }
+        public Chances Chance { get; set; }
+    }
     public class StatGameXml : StatMtxXml
     {
+        public StatSituationXml Situation { get; set; }
         public string Name { get; set; }
         public StatGameXml()
         {
@@ -48,8 +55,33 @@ namespace DSSCriterias.Logic
         public StatGameXml(StatGame game) : base(game.Mtx.Rows, game.Mtx.Cols, game.Mtx.Values)
         {
             Name = game.Name;
+            Situation = new StatSituationXml()
+            {
+                Chance = game.Situation.Chances.Type,
+                Goal = game.Situation.Goal.Type,
+                Usage = game.Situation.Usage.Type
+            };
+        }
+
+
+        public StatGame Create()
+        {
+            var mtx = MtxStat.CreateFromXml(this);
+            var situation = new Situation();
+            if(Situation != null)
+            {
+                situation = new Situation
+                {
+                    Chances = StateChances.Get(Situation.Chance),
+                    Goal = StateGoal.Get(Situation.Goal),
+                    Usage = StateUsage.Get(Situation.Usage)
+                };
+            }
+            return new StatGame(Name, mtx, situation);
         }
     }
+
+
 
     public static class SaverProvider
     {
@@ -88,7 +120,7 @@ namespace DSSCriterias.Logic
         public StatGame FromTextString(string xml)
         {
             StatGameXml gameXml = DefaultProvider.FromTextString(xml);
-            return new StatGame(gameXml);
+            return gameXml.Create();
         }
         public string ToTextString(StatGame game)
         {

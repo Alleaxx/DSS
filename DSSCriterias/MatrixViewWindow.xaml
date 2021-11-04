@@ -11,6 +11,8 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolVisibility" />
+        <local:ObjectToVisibilityConverter x:Key="ObjVisibility" />
+        <local:ObjectToVisibilityInvertedConverter x:Key="ObjVisibilityInverted" />
         <ItemsPanelTemplate x:Key="wrap">
             <WrapPanel />
         </ItemsPanelTemplate>
@@ -399,7 +401,10 @@
                                         </GroupBox.Header>
                                         <StackPanel>
                                             <TextBlock Text="Обстоятельства" FontSize="16" FontWeight="Medium" Margin="0,3"/>
-                                            <StackPanel Margin="0,4,0,6">
+                                            <CheckBox IsChecked="{Binding Report.IgnoreUsage}">
+                                                <TextBlock Text="Не учитывать" FontSize="12"/>
+                                            </CheckBox>
+                                            <StackPanel Margin="0,4,0,6" Visibility="{Binding Report.IgnoreUsage, Converter={StaticResource ObjVisibilityInverted}}">
                                                 <DockPanel>
                                                     <StackPanel Margin="3,0">
                                                         <TextBlock Text="Условия" FontSize="14" Foreground="Gray"/>
@@ -448,9 +453,6 @@
 
                                                 </DockPanel>
                                             </StackPanel>
-                                            <CheckBox IsChecked="{Binding Report.IgnoreUsage}">
-                                                <TextBlock Text="Не учитывать обстоятельства" FontSize="12"/>
-                                            </CheckBox>
                                             
                                             <Border DataContext="{Binding Report}" Margin="0,5" Padding="0,10" BorderThickness="0,1" BorderBrush="Gainsboro">
                                                 <StackPanel>
@@ -590,7 +592,7 @@
                                         </ListView>
 
                                     </GroupBox>
-                                    <GroupBox Grid.Column="1" Content="{Binding ElementName=criterias,Path=SelectedItem}"  Margin="5" Padding="5">
+                                    <GroupBox Grid.Column="1" Content="{Binding ElementName=criterias,Path=SelectedItem}" Visibility="{Binding ElementName=criterias, Path=SelectedItem, Converter={StaticResource ObjVisibility}}" Margin="5" Padding="5">
                                         <GroupBox.Header>
                                             <TextBlock Text="{Binding ElementName=criterias,Path=SelectedItem.Name}"  FontSize="18"/>
                                         </GroupBox.Header>
@@ -608,7 +610,7 @@
                                                             </StackPanel>
                                                         </Border>
 
-                                                        <Border Margin="0,3" Padding="0,3" BorderThickness="0,0,0,0" BorderBrush="Gainsboro">
+                                                        <Border Margin="0,3" Padding="0,3" BorderThickness="0,0,0,0" BorderBrush="Gainsboro" Visibility="{Binding Options.Count,Converter={StaticResource ObjVisibility}}">
                                                             <StackPanel>
                                                                 <TextBlock Text="Параметры" FontSize="14" FontWeight="Medium" Margin="0,4" />
                                                                 <ItemsControl ItemsSource="{Binding Options}">
@@ -650,7 +652,30 @@
                                                             </StackPanel>
 
                                                         </Border>
-                                                        <Border Margin="0,3" Padding="0,3" BorderThickness="0,0,0,1" BorderBrush="Gainsboro">
+                                                        <StackPanel>
+                                                            <TextBlock Text="Результаты" FontSize="14" FontWeight="Medium" Margin="0,4"/>
+                                                            <DockPanel>
+                                                                <TextBlock Text="Коэффициент критерия: " FontSize="14" Width="200"/>
+                                                                <TextBlock Text="{Binding Result}" FontSize="14"/>
+                                                            </DockPanel>
+
+                                                            <DockPanel>
+                                                                <TextBlock Text="Предпочтительные исходы: " FontSize="14" Width="200"/>
+                                                                <ItemsControl ItemsSource="{Binding BestAlternatives}" FontSize="14">
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <TextBlock Text="{Binding}" Margin="0,0,4,0"/>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                </ItemsControl>
+                                                            </DockPanel>
+                                                        </StackPanel>
+                                                        <Border Margin="0,3" Padding="0,3" BorderThickness="0,1,0,1" BorderBrush="Gainsboro">
                                                             <StackPanel>
                                                                 <TextBlock Text="Алгоритм расчета" FontSize="14" FontWeight="Medium" Margin="0,4"/>
                                                                 <TextBlock Text="{Binding DecizionAlgoritm}" FontSize="14" TextWrapping="Wrap"/>
@@ -695,29 +720,6 @@
                                                                 </StackPanel>
                                                             </StackPanel>
                                                         </Border>
-                                                        <StackPanel>
-                                                            <TextBlock Text="Результаты" FontSize="14" FontWeight="Medium" Margin="0,4"/>
-                                                            <DockPanel>
-                                                                <TextBlock Text="Коэффициент критерия: " FontSize="14" Width="200"/>
-                                                                <TextBlock Text="{Binding Result}" FontSize="14"/>
-                                                            </DockPanel>
-
-                                                            <DockPanel>
-                                                                <TextBlock Text="Предпочтительные исходы: " FontSize="14" Width="200"/>
-                                                                <ItemsControl ItemsSource="{Binding BestAlternatives}" FontSize="14">
-                                                                    <ItemsControl.ItemTemplate>
-                                                                        <DataTemplate>
-                                                                            <TextBlock Text="{Binding}" Margin="0,0,4,0"/>
-                                                                        </DataTemplate>
-                                                                    </ItemsControl.ItemTemplate>
-                                                                    <ItemsControl.ItemsPanel>
-                                                                        <ItemsPanelTemplate>
-                                                                            <WrapPanel />
-                                                                        </ItemsPanelTemplate>
-                                                                    </ItemsControl.ItemsPanel>
-                                                                </ItemsControl>
-                                                            </DockPanel>
-                                                        </StackPanel>
 
                                                     </StackPanel>
 

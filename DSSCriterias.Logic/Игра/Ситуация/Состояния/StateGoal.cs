@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Serialization;
 using DSSCriterias.Logic.States;
 
 namespace DSSCriterias.Logic
@@ -15,6 +15,7 @@ namespace DSSCriterias.Logic
 
     public abstract class StateGoal : State<Goals>
     {
+        [XmlIgnore]
         private static readonly Dictionary<Goals, StateGoal> Values = new Dictionary<Goals, StateGoal>()
         {
             [Goals.MaxProfit]   = new GoalMaxProfit(),
