@@ -48,7 +48,6 @@ namespace DSSLib
         {
 
             SaveFileDialog dialog = new SaveFileDialog();
-            //dialog.FileName = $"{CurrentData.FileSource.Name}";
             dialog.DefaultExt = DefaultExt;
             dialog.InitialDirectory = DefaultDirectory;
             dialog.Filter = DefaultFilter;
