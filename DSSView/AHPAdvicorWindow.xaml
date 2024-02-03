@@ -138,7 +138,7 @@
             <MenuItem Header="Представление">
                 <MenuItem Header="В виде решения МАИ" Command="{Binding OpenTechWindowCommand}" />
             </MenuItem>
-            <MenuItem Header="О программе" />
+            <MenuItem Header="О программе" Click="MenuItem_Click" />
             <!--<TextBlock Text="Текущая проблема:" />
             <ListBox ItemsSource="{Binding Problems}" SelectedItem="{Binding Problem}" HorizontalAlignment="Right"/>-->
         </Menu>

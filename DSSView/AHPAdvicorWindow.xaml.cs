@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSSView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,12 @@ namespace DSSAHP
         private void hierarchyBtn_Click(object sender, RoutedEventArgs e)
         {
             Tab.SelectedIndex = 1;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow window = new AboutWindow();
+            window.ShowDialog();
         }
     }
 }

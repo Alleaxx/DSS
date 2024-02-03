@@ -12,14 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DSSAHP
+namespace DSSView
 {
-    public partial class TreeViewWindow : Window
+    /// <summary>
+    /// Логика взаимодействия для AboutWindow.xaml
+    /// </summary>
+    public partial class AboutWindow : Window
     {
-        public TreeViewWindow()
+        public AboutWindow()
         {
             InitializeComponent();
-            View.Tree = DataContext as ViewTree;
         }
     }
 }
